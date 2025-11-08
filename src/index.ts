@@ -5,6 +5,7 @@ export {
   OnboardingProgress,
   OnboardingNavigation,
   HotspotTour,
+  KeyboardShortcutsOverlay,
 } from './components/onboarding'
 
 // Navigation & Interaction
@@ -97,3 +98,48 @@ export type {
   ConditionalStep,
   Branch,
 } from './lib/branching'
+
+// 🚀 NEW: Animations with Framer Motion
+export {
+  getAnimationVariants,
+  getTransition,
+  springConfigs,
+  easings,
+  fadeVariants,
+  slideVariants,
+  scaleVariants,
+  blurVariants,
+  flipVariants,
+  bounceVariants,
+  zoomVariants,
+  rotateVariants,
+  staggerChildren,
+  hoverScale,
+  tapScale,
+  hoverGlow,
+  progressVariants,
+  confettiAnimation,
+  shakeVariants,
+  pulseVariants,
+} from './lib/animations'
+export type { AnimationType, AnimationDirection, AnimationConfig } from './lib/animations'
+
+// 🎮 NEW: Gamification System
+export { GamificationSystem, getLevel, getPointsToNextLevel, formatTime } from './lib/gamification'
+export type { Achievement, OnboardingStats, GamificationConfig } from './lib/gamification'
+
+// 💾 NEW: Persistence & Resume
+export { OnboardingPersistence, CrossTabSync, getTimeSinceLastVisit } from './lib/persistence'
+export type { OnboardingProgress as OnboardingProgressData, PersistenceConfig } from './lib/persistence'
+
+// 📳 NEW: Haptic Feedback
+export { haptics, useHapticFeedback, onboardingHaptics } from './lib/haptics'
+export type { HapticPattern } from './lib/haptics'
+
+// 🎨 NEW: Premium Themes
+export { premiumThemes, getTheme, getThemeNames, getThemesByCategory, applyTheme, generateThemeCSS } from './lib/themes'
+
+// 🎉 NEW: Enhanced Confetti
+export { ConfettiSystem, confetti, confettiPresets } from './lib/confetti'
+export type { ConfettiShape, ConfettiType, ConfettiParticle, ConfettiConfig } from './lib/confetti'
+

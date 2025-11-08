@@ -4,6 +4,7 @@ export { OnboardingProgress } from './OnboardingProgress'
 export { OnboardingNavigation } from './OnboardingNavigation'
 export { OnboardingMedia } from './OnboardingMedia'
 export { HotspotTour } from './HotspotTour'
+export { KeyboardShortcutsOverlay } from './KeyboardShortcutsOverlay'
 export type {
   OnboardingTheme,
   OnboardingStep,

@@ -1,13 +1,53 @@
 {
-  "name": "onboarding-ui",
-  "private": true,
-  "version": "0.0.0",
+  "name": "@onboarding-ui/react",
+  "version": "1.0.0",
+  "description": "A beautiful, Apple-inspired React component library for creating stunning onboarding experiences",
+  "author": "Your Name",
+  "license": "MIT",
+  "keywords": [
+    "react",
+    "onboarding",
+    "ui",
+    "components",
+    "typescript",
+    "tailwindcss",
+    "shadcn"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/onboarding-ui"
+  },
+  "bugs": {
+    "url": "https://github.com/yourusername/onboarding-ui/issues"
+  },
+  "homepage": "https://github.com/yourusername/onboarding-ui#readme",
   "type": "module",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    },
+    "./styles.css": "./dist/style.css"
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ],
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
+    "build:lib": "tsc && vite build --mode lib",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "prepublishOnly": "npm run build:lib"
+  },
+  "peerDependencies": {
+    "react": "^18.0.0 || ^19.0.0",
+    "react-dom": "^18.0.0 || ^19.0.0"
   },
   "dependencies": {
     "class-variance-authority": "^0.7.1",

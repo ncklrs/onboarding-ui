@@ -1,0 +1,17 @@
+src/
+public/
+.git/
+.gitignore
+node_modules/
+*.log
+*.md
+!README.md
+tsconfig.json
+tsconfig.*.json
+vite.config.ts
+eslint.config.js
+tailwind.config.js
+postcss.config.js
+index.html
+.env*
+demos/

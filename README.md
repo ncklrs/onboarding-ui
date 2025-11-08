@@ -2,26 +2,36 @@
 
 A beautiful, Apple-inspired React component library for creating stunning onboarding experiences. Built with TypeScript, Tailwind CSS, and shadcn/ui.
 
+![TypeScript](https://img.shields.io/badge/TypeScript-Ready-blue)
+![React 19](https://img.shields.io/badge/React-19-blue)
+![Tailwind CSS](https://img.shields.io/badge/Tailwind-CSS-38bdf8)
+
 ## Features
 
 - 🎨 **Clean, Apple-inspired Design** - Minimalist and elegant UI/UX
 - 🎯 **Fully Customizable** - Easy theme customization with props
 - 📱 **Responsive** - Works perfectly on all screen sizes
 - 🔧 **TypeScript Support** - Full type safety out of the box
-- ⚡ **Built with Modern Tools** - React, Vite, Tailwind CSS, shadcn/ui
+- ⚡ **Built with Modern Tools** - React 19, Vite, Tailwind CSS, shadcn/ui
 - 🎭 **Multiple Progress Variants** - Bar, dots, and minimal styles
 - 🌗 **Dark Mode Ready** - Built-in dark mode support
+- 📦 **Rich Component Library** - 10+ components and templates
+- 🎬 **Media Support** - Image and video-based onboarding
+- 📝 **Form Templates** - Ready-to-use user setup flows
 
 ## Demo
 
-Run the demo locally:
+Run the interactive demo locally:
 
 ```bash
 npm install
 npm run dev
 ```
 
-Visit `http://localhost:5173` to see the interactive demo showcasing all features and customization options.
+Visit `http://localhost:5173` to explore:
+- **Basic Onboarding** - Classic flow with 6 theme options
+- **Feature Tour** - Showcase features with cards and checklists
+- **User Setup** - Profile creation with forms and preferences
 
 ## Installation
 
@@ -34,7 +44,7 @@ cd onboarding-ui
 npm install
 ```
 
-## Usage
+## Quick Start
 
 ### Basic Example
 
@@ -55,7 +65,6 @@ function App() {
         </div>
       ),
     },
-    // Add more steps...
   ]
 
   return (
@@ -70,55 +79,41 @@ function App() {
 ### With Custom Theme
 
 ```tsx
-import { OnboardingContainer, OnboardingTheme } from './components/onboarding'
+import { OnboardingContainer } from './components/onboarding'
 
-const customTheme: OnboardingTheme = {
+const customTheme = {
   primaryColor: '#3b82f6',
   accentColor: '#60a5fa',
 }
 
-function App() {
-  return (
-    <OnboardingContainer
-      steps={steps}
-      theme={customTheme}
-      onComplete={() => console.log('Done!')}
-    />
-  )
-}
-```
-
-### Progress Variants
-
-The library supports three progress indicator styles:
-
-```tsx
-<OnboardingProgress
-  currentStep={0}
-  totalSteps={4}
-  variant="bar"      // Default: progress bar
-/>
-
-<OnboardingProgress
-  currentStep={0}
-  totalSteps={4}
-  variant="dots"     // Dots indicator
-/>
-
-<OnboardingProgress
-  currentStep={0}
-  totalSteps={4}
-  variant="minimal"  // Simple counter (1 / 4)
+<OnboardingContainer
+  steps={steps}
+  theme={customTheme}
+  onComplete={() => console.log('Done!')}
 />
 ```
 
-## Component API
+## Components
 
-### OnboardingContainer
+### Core Components
+
+#### OnboardingContainer
 
 Main container component that manages the onboarding flow.
 
-#### Props
+```tsx
+<OnboardingContainer
+  steps={steps}
+  currentStep={0}
+  onStepChange={(step) => console.log(step)}
+  onComplete={() => console.log('Complete')}
+  theme={{ primaryColor: '#3b82f6' }}
+  showProgress={true}
+  showStepIndicator={true}
+/>
+```
+
+**Props:**
 
 | Prop | Type | Default | Description |
 |------|------|---------|-------------|
@@ -131,25 +126,220 @@ Main container component that manages the onboarding flow.
 | `showStepIndicator` | `boolean` | `true` | Show/hide step icons |
 | `className` | `string` | - | Additional CSS classes |
 
-### OnboardingStep
+#### OnboardingMedia
 
-Step configuration object.
+Container with support for images and videos.
 
-```typescript
-interface OnboardingStep {
-  id: string
-  title: string
-  description?: string
-  content: ReactNode
-  icon?: ReactNode
+```tsx
+import { OnboardingMedia } from './components/onboarding'
+
+<OnboardingMedia
+  steps={[
+    {
+      id: 'intro',
+      title: 'Welcome',
+      media: {
+        type: 'image',
+        src: '/hero.jpg',
+        position: 'left', // 'top' | 'bottom' | 'left' | 'right'
+      },
+      content: <p>Your content here</p>,
+    },
+  ]}
+/>
+```
+
+#### OnboardingProgress
+
+Standalone progress indicator with multiple variants.
+
+```tsx
+import { OnboardingProgress } from './components/onboarding'
+
+// Bar variant (default)
+<OnboardingProgress
+  currentStep={0}
+  totalSteps={4}
+  variant="bar"
+/>
+
+// Dots variant
+<OnboardingProgress
+  currentStep={0}
+  totalSteps={4}
+  variant="dots"
+/>
+
+// Minimal variant
+<OnboardingProgress
+  currentStep={0}
+  totalSteps={4}
+  variant="minimal"
+/>
+```
+
+#### OnboardingNavigation
+
+Customizable navigation buttons.
+
+```tsx
+import { OnboardingNavigation } from './components/onboarding'
+
+<OnboardingNavigation
+  currentStep={0}
+  totalSteps={4}
+  onNext={() => {}}
+  onPrevious={() => {}}
+  onSkip={() => {}}
+  nextLabel="Continue"
+  previousLabel="Back"
+  skipLabel="Skip"
+  showSkip={true}
+/>
+```
+
+### Templates
+
+Pre-built templates for common onboarding patterns.
+
+#### FeatureTour
+
+Showcase features in a grid layout.
+
+```tsx
+import { FeatureTour } from './components/onboarding'
+import { Code, Palette, Zap } from 'lucide-react'
+
+<FeatureTour
+  columns={3}
+  features={[
+    {
+      icon: <Code className="h-6 w-6" />,
+      title: 'Developer Friendly',
+      description: 'Built with TypeScript',
+      badge: 'New',
+    },
+    {
+      icon: <Palette className="h-6 w-6" />,
+      title: 'Customizable',
+      description: 'Full theme control',
+    },
+    {
+      icon: <Zap className="h-6 w-6" />,
+      title: 'Fast',
+      description: 'Optimized performance',
+    },
+  ]}
+/>
+```
+
+#### Checklist
+
+Interactive checklist component.
+
+```tsx
+import { Checklist } from './components/onboarding'
+
+<Checklist
+  items={[
+    { text: 'Install the package', completed: true },
+    { text: 'Configure theme', completed: true },
+    { text: 'Create first flow', completed: false },
+  ]}
+/>
+```
+
+#### UserSetupForm
+
+Profile creation form with avatar support.
+
+```tsx
+import { UserSetupForm } from './components/onboarding'
+
+<UserSetupForm
+  onSubmit={(data) => {
+    console.log('User data:', data)
+    // { name, email, role, avatar }
+  }}
+/>
+```
+
+#### PreferencesSelector
+
+Multi-select preference cards.
+
+```tsx
+import { PreferencesSelector } from './components/onboarding'
+import { Code, Palette } from 'lucide-react'
+
+const [selected, setSelected] = useState<string[]>([])
+
+<PreferencesSelector
+  title="Choose your interests"
+  options={[
+    {
+      id: 'design',
+      label: 'Design',
+      description: 'UI/UX and visual design',
+      icon: <Palette className="h-5 w-5" />,
+    },
+    {
+      id: 'dev',
+      label: 'Development',
+      description: 'Code and technical content',
+      icon: <Code className="h-5 w-5" />,
+    },
+  ]}
+  selected={selected}
+  onSelectionChange={setSelected}
+  multiSelect={true}
+/>
+```
+
+### UI Components
+
+Additional components included:
+
+- **Button** - Customizable buttons with variants
+- **Card** - Container components with header, content, footer
+- **Input** - Form input fields
+- **Badge** - Label badges with variants
+- **Separator** - Visual dividers
+- **Avatar** - User avatars with fallback
+
+## Theming
+
+### Built-in Themes
+
+```tsx
+const themes = {
+  default: {},
+  blue: {
+    primaryColor: '#3b82f6',
+    accentColor: '#60a5fa',
+  },
+  purple: {
+    primaryColor: '#a855f7',
+    accentColor: '#c084fc',
+  },
+  green: {
+    primaryColor: '#22c55e',
+    accentColor: '#4ade80',
+  },
+  red: {
+    primaryColor: '#ef4444',
+    accentColor: '#f87171',
+  },
+  orange: {
+    primaryColor: '#f97316',
+    accentColor: '#fb923c',
+  },
 }
 ```
 
-### OnboardingTheme
+### Custom Theme
 
-Theme customization object.
-
-```typescript
+```tsx
 interface OnboardingTheme {
   primaryColor?: string      // Main button color
   secondaryColor?: string    // Secondary elements
@@ -157,62 +347,18 @@ interface OnboardingTheme {
   textColor?: string        // Text color
   accentColor?: string      // Accent elements
 }
-```
 
-### OnboardingNavigation
-
-Navigation component with back, skip, and continue buttons.
-
-#### Props
-
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `currentStep` | `number` | Required | Current step index |
-| `totalSteps` | `number` | Required | Total number of steps |
-| `onNext` | `() => void` | - | Next button handler |
-| `onPrevious` | `() => void` | - | Back button handler |
-| `onSkip` | `() => void` | - | Skip button handler |
-| `onComplete` | `() => void` | - | Complete button handler |
-| `theme` | `OnboardingTheme` | - | Custom theme |
-| `nextLabel` | `string` | `'Continue'` | Next button text |
-| `previousLabel` | `string` | `'Back'` | Back button text |
-| `skipLabel` | `string` | `'Skip'` | Skip button text |
-| `completeLabel` | `string` | `'Get Started'` | Complete button text |
-| `showSkip` | `boolean` | `true` | Show/hide skip button |
-
-## Customization Examples
-
-### Color Themes
-
-The demo includes several pre-configured themes:
-
-**Ocean Blue**
-```typescript
-{
-  primaryColor: '#3b82f6',
-  accentColor: '#60a5fa',
-}
-```
-
-**Royal Purple**
-```typescript
-{
-  primaryColor: '#a855f7',
-  accentColor: '#c084fc',
-}
-```
-
-**Forest Green**
-```typescript
-{
-  primaryColor: '#22c55e',
-  accentColor: '#4ade80',
+const myTheme: OnboardingTheme = {
+  primaryColor: '#8b5cf6',
+  accentColor: '#a78bfa',
+  backgroundColor: '#fafafa',
+  textColor: '#1f2937',
 }
 ```
 
 ### Dark Mode
 
-The components support dark mode through Tailwind's dark mode classes. Simply add the `dark` class to your root element:
+Enable dark mode by adding the `dark` class to your root element:
 
 ```tsx
 <div className="dark">
@@ -220,23 +366,158 @@ The components support dark mode through Tailwind's dark mode classes. Simply ad
 </div>
 ```
 
+## Advanced Usage
+
+### Controlled Step State
+
+```tsx
+const [currentStep, setCurrentStep] = useState(0)
+
+<OnboardingContainer
+  steps={steps}
+  currentStep={currentStep}
+  onStepChange={setCurrentStep}
+/>
+```
+
+### Step Completion Tracking
+
+```tsx
+const [completedSteps, setCompletedSteps] = useState<Set<string>>(new Set())
+
+<OnboardingContainer
+  steps={steps}
+  onStepChange={(step) => {
+    const stepId = steps[step].id
+    setCompletedSteps(prev => new Set([...prev, stepId]))
+  }}
+/>
+```
+
+### Media-based Onboarding
+
+```tsx
+import { OnboardingMedia } from './components/onboarding'
+
+<OnboardingMedia
+  steps={[
+    {
+      id: 'welcome',
+      title: 'Welcome',
+      media: {
+        type: 'video',
+        src: '/intro.mp4',
+        position: 'left',
+      },
+      content: <p>Watch our introduction</p>,
+    },
+    {
+      id: 'features',
+      title: 'Features',
+      media: {
+        type: 'image',
+        src: '/features.png',
+        position: 'right',
+      },
+      content: <FeatureTour features={features} />,
+    },
+  ]}
+/>
+```
+
+### Complete User Setup Flow
+
+```tsx
+const setupSteps = [
+  {
+    id: 'profile',
+    title: 'Create Profile',
+    content: <UserSetupForm onSubmit={handleUserData} />,
+  },
+  {
+    id: 'preferences',
+    title: 'Set Preferences',
+    content: (
+      <PreferencesSelector
+        options={preferenceOptions}
+        selected={selected}
+        onSelectionChange={setSelected}
+      />
+    ),
+  },
+  {
+    id: 'complete',
+    title: 'All Set!',
+    content: <CompletionSummary />,
+  },
+]
+```
+
+## TypeScript Support
+
+All components are fully typed with TypeScript:
+
+```tsx
+import type {
+  OnboardingStep,
+  OnboardingTheme,
+  OnboardingContainerProps,
+  OnboardingProgressProps,
+  OnboardingNavigationProps,
+  UserSetupData,
+} from './components/onboarding'
+```
+
 ## Tech Stack
 
 - **React 19** - Latest React features
-- **TypeScript** - Type safety
-- **Vite** - Fast build tool
+- **TypeScript 5.9** - Type safety
+- **Vite 7** - Fast build tool
 - **Tailwind CSS 3** - Utility-first CSS
 - **shadcn/ui** - High-quality components
 - **Lucide React** - Beautiful icons
 - **class-variance-authority** - Component variants
 
-## Building for Production
+## Project Structure
 
-```bash
-npm run build
 ```
-
-The built files will be in the `dist` directory.
+onboarding-ui/
+├── src/
+│   ├── components/
+│   │   ├── onboarding/
+│   │   │   ├── OnboardingContainer.tsx
+│   │   │   ├── OnboardingMedia.tsx
+│   │   │   ├── OnboardingProgress.tsx
+│   │   │   ├── OnboardingNavigation.tsx
+│   │   │   ├── templates/
+│   │   │   │   ├── FeatureTour.tsx
+│   │   │   │   ├── UserSetup.tsx
+│   │   │   │   └── index.ts
+│   │   │   ├── types.ts
+│   │   │   └── index.ts
+│   │   └── ui/
+│   │       ├── button.tsx
+│   │       ├── card.tsx
+│   │       ├── input.tsx
+│   │       ├── badge.tsx
+│   │       ├── separator.tsx
+│   │       └── avatar.tsx
+│   ├── demos/
+│   │   ├── BasicDemo.tsx
+│   │   ├── FeatureDemo.tsx
+│   │   └── UserSetupDemo.tsx
+│   ├── lib/
+│   │   ├── utils.ts
+│   │   └── animations.ts
+│   ├── App.tsx
+│   ├── main.tsx
+│   └── index.css
+├── tailwind.config.js
+├── postcss.config.js
+├── tsconfig.json
+├── vite.config.ts
+└── package.json
+```
 
 ## Development
 
@@ -254,32 +535,38 @@ npm run preview
 npm run lint
 ```
 
-## File Structure
+## Building for Production
 
+```bash
+npm run build
 ```
-onboarding-ui/
-├── src/
-│   ├── components/
-│   │   ├── onboarding/
-│   │   │   ├── OnboardingContainer.tsx
-│   │   │   ├── OnboardingProgress.tsx
-│   │   │   ├── OnboardingNavigation.tsx
-│   │   │   ├── types.ts
-│   │   │   └── index.ts
-│   │   └── ui/
-│   │       ├── button.tsx
-│   │       └── card.tsx
-│   ├── lib/
-│   │   └── utils.ts
-│   ├── App.tsx
-│   ├── main.tsx
-│   └── index.css
-├── tailwind.config.js
-├── postcss.config.js
-├── tsconfig.json
-├── vite.config.ts
-└── package.json
-```
+
+The built files will be in the `dist` directory.
+
+## Examples
+
+Check the `src/demos` directory for complete examples:
+
+- **BasicDemo.tsx** - Classic onboarding with theme switcher
+- **FeatureDemo.tsx** - Feature showcase with checklist
+- **UserSetupDemo.tsx** - User profile and preferences setup
+
+## Best Practices
+
+1. **Keep steps concise** - 3-5 steps is ideal for most onboarding flows
+2. **Use icons** - Visual indicators improve user experience
+3. **Allow skipping** - Let users skip non-essential steps
+4. **Show progress** - Always display progress indicators
+5. **Mobile-first** - Test on mobile devices early
+6. **Theme consistency** - Match your brand colors
+7. **Test flows** - Validate the entire onboarding experience
+
+## Browser Support
+
+- Chrome (latest)
+- Firefox (latest)
+- Safari (latest)
+- Edge (latest)
 
 ## License
 
@@ -292,3 +579,12 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 ## Support
 
 For issues and questions, please open an issue on GitHub.
+
+## Acknowledgments
+
+Built with inspiration from Apple's design philosophy and powered by:
+- [React](https://react.dev)
+- [TypeScript](https://www.typescriptlang.org)
+- [Tailwind CSS](https://tailwindcss.com)
+- [shadcn/ui](https://ui.shadcn.com)
+- [Lucide Icons](https://lucide.dev)

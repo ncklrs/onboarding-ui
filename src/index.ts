@@ -4,6 +4,17 @@ export {
   OnboardingMedia,
   OnboardingProgress,
   OnboardingNavigation,
+  HotspotTour,
+} from './components/onboarding'
+
+// Navigation & Interaction
+export {
+  KeyboardNavigation,
+  useKeyboardNavigation,
+  SwipeNavigation,
+  useSwipeNavigation,
+  AutoAdvance,
+  useAutoAdvance,
 } from './components/onboarding'
 
 // Templates
@@ -12,6 +23,10 @@ export {
   Checklist,
   UserSetupForm,
   PreferencesSelector,
+  WelcomeScreen,
+  PermissionsRequest,
+  SuccessScreen,
+  VideoTutorial,
 } from './components/onboarding'
 
 // Context & State Management
@@ -57,3 +72,28 @@ export { Avatar } from './components/ui/avatar'
 
 // Utilities
 export { cn } from './lib/utils'
+
+// Analytics
+export {
+  OnboardingAnalytics,
+  GoogleAnalyticsAdapter,
+  SegmentAdapter,
+  MixpanelAdapter,
+  AmplitudeAdapter,
+  ConsoleAdapter,
+} from './lib/analytics'
+export type { AnalyticsAdapter } from './lib/analytics'
+
+// Branching & Conditional Logic
+export {
+  evaluateSteps,
+  conditions,
+  createBranch,
+  resolveBranches,
+} from './lib/branching'
+export type {
+  StepCondition,
+  BranchingContext,
+  ConditionalStep,
+  Branch,
+} from './lib/branching'

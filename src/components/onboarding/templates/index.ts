@@ -1,3 +1,7 @@
 export { FeatureTour, Checklist } from './FeatureTour'
 export { UserSetupForm, PreferencesSelector } from './UserSetup'
+export { WelcomeScreen } from './WelcomeScreen'
+export { PermissionsRequest } from './PermissionsRequest'
+export { SuccessScreen } from './SuccessScreen'
+export { VideoTutorial } from './VideoTutorial'
 export type { UserSetupData } from './UserSetup'

@@ -9,8 +9,9 @@ import { Separator } from './components/ui/separator'
 import { basicSteps, themes } from './demos/BasicDemo'
 import { featureDemoSteps } from './demos/FeatureDemo'
 import { UserSetupDemo } from './demos/UserSetupDemo'
+import { DocumentationDemo } from './demos/DocumentationDemo'
 
-type DemoType = 'basic' | 'feature-tour' | 'user-setup' | null
+type DemoType = 'basic' | 'feature-tour' | 'user-setup' | 'documentation' | null
 
 function App() {
   const [currentDemo, setCurrentDemo] = useState<DemoType>(null)
@@ -18,9 +19,12 @@ function App() {
   const [showOnboarding, setShowOnboarding] = useState(false)
 
   const userSetupSteps = UserSetupDemo()
+  const documentationSteps = DocumentationDemo()
 
   const getDemoSteps = (): OnboardingStep[] => {
     switch (currentDemo) {
+      case 'documentation':
+        return documentationSteps
       case 'basic':
         return [
           ...basicSteps,
@@ -130,7 +134,36 @@ function App() {
 
         <div className="mb-8">
           <h2 className="mb-6 text-2xl font-semibold">Choose a Demo</h2>
-          <div className="grid gap-6 md:grid-cols-3">
+          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+            <Card
+              className="cursor-pointer transition-all hover:shadow-lg hover:ring-2 hover:ring-purple-500"
+              onClick={() => {
+                setCurrentDemo('documentation')
+                setShowOnboarding(true)
+              }}
+            >
+              <CardHeader>
+                <div className="mb-2 flex items-center gap-2">
+                  <div className="rounded-lg bg-purple-500/10 p-2">
+                    <Sparkles className="h-6 w-6 text-purple-500" />
+                  </div>
+                  <Badge className="bg-purple-500">Featured</Badge>
+                </div>
+                <CardTitle>Full Documentation</CardTitle>
+                <CardDescription>
+                  Interactive tour of all 100+ features
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <ul className="space-y-2 text-sm text-muted-foreground">
+                  <li>• All core components</li>
+                  <li>• Advanced templates</li>
+                  <li>• Event system & analytics</li>
+                  <li>• Conditional branching</li>
+                </ul>
+              </CardContent>
+            </Card>
+
             <Card
               className="cursor-pointer transition-all hover:shadow-lg hover:ring-2 hover:ring-primary"
               onClick={() => {

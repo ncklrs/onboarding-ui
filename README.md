@@ -468,6 +468,108 @@ import type {
 } from './components/onboarding'
 ```
 
+## Event System & State Management
+
+The library includes a powerful event system for tracking user interactions and managing state.
+
+### OnboardingProvider
+
+Wrap your app with the provider for state management:
+
+```tsx
+import { OnboardingProvider } from '@onboarding-ui/react'
+
+<OnboardingProvider
+  steps={steps}
+  onComplete={() => console.log('Done!')}
+  onEvent={(event) => {
+    console.log('Event:', event)
+    // Send to analytics
+    analytics.track(event.type, event)
+  }}
+>
+  <YourOnboarding />
+</OnboardingProvider>
+```
+
+### Hooks
+
+Access onboarding state and listen to events:
+
+```tsx
+import {
+  useOnboarding,
+  useOnboardingEvents,
+  useStepData,
+  OnboardingEventType,
+} from '@onboarding-ui/react'
+
+function YourComponent() {
+  // Access state
+  const {
+    currentStep,
+    totalSteps,
+    progress,
+    nextStep,
+    getAllStepData,
+  } = useOnboarding()
+
+  // Listen to events
+  useOnboardingEvents(OnboardingEventType.STEP_ENTER, (event) => {
+    console.log('Step entered:', event.stepId)
+  })
+
+  // Manage step data
+  const { data, updateData, complete } = useStepData('profile')
+
+  return (
+    <input
+      value={data?.name || ''}
+      onChange={(e) => updateData({ name: e.target.value })}
+    />
+  )
+}
+```
+
+### Event Types
+
+Listen to these events:
+
+- `STEP_ENTER` - User entered a step
+- `STEP_EXIT` - User exited a step
+- `STEP_COMPLETE` - Step marked complete
+- `STEP_SKIP` - User skipped a step
+- `NAVIGATION_NEXT` / `NAVIGATION_PREVIOUS` - Navigation actions
+- `ONBOARDING_COMPLETE` - Onboarding finished
+- `DATA_COLLECT` - Data collected from step
+
+### Convenience Hooks
+
+```tsx
+import {
+  useOnStepEnter,
+  useOnDataCollect,
+  useOnOnboardingComplete,
+} from '@onboarding-ui/react'
+
+// Track analytics
+useOnStepEnter((event) => {
+  analytics.track('Step Viewed', { stepId: event.stepId })
+})
+
+// Save data to backend
+useOnDataCollect(async (event) => {
+  await saveToBackend(event.stepId, event.stepData)
+})
+
+// Handle completion
+useOnOnboardingComplete((event) => {
+  router.push('/dashboard')
+})
+```
+
+**See [EVENT_SYSTEM.md](./EVENT_SYSTEM.md) for complete documentation and examples.**
+
 ## Tech Stack
 
 - **React 19** - Latest React features

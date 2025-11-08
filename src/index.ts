@@ -14,6 +14,29 @@ export {
   PreferencesSelector,
 } from './components/onboarding'
 
+// Context & State Management
+export { OnboardingProvider, useOnboardingContext } from './context/OnboardingContext'
+export type { OnboardingState, OnboardingContextValue, StepData } from './context/OnboardingContext'
+
+// Hooks
+export {
+  useOnboarding,
+  useOnboardingEvents,
+  useOnboardingMultiEvents,
+  useOnStepEnter,
+  useOnStepExit,
+  useOnStepComplete,
+  useOnStepSkip,
+  useOnDataCollect,
+  useOnOnboardingComplete,
+  useStepData,
+  useCurrentStepData,
+} from './hooks'
+
+// Event System
+export { OnboardingEventEmitter, OnboardingEventType, createEvent, createStepEvent } from './lib/events'
+export type { OnboardingEventData, StepEventData, DataCollectionEvent, OnboardingEventListener } from './lib/events'
+
 // Types
 export type {
   OnboardingTheme,
